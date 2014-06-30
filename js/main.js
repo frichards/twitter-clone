@@ -4,6 +4,7 @@ $( document ).ready(function(){
 var tweetCompose = $(".tweet-compose");
 var tweetSubmit = $("#tweet-submit");
 var charCount = $("#char-count");
+var time = $('.time');
 	$(".stats").hide();
 	$(".reply").hide();
 
@@ -12,14 +13,11 @@ var charCount = $("#char-count");
 
 tweetCompose.on("click", function() {
 			$(".tweet-compose").css("height", "5em");
-			$("#tweet-controls").css("display", "block")
+			// $("#tweet-controls").css("display", "block");
+			tweetSubmit.attr("disabled", true);
+			$("#tweet-controls").toggle();
 
 	});
-
-
-	tweetCompose.on("click", function() {
-		tweetSubmit.attr("disabled", true);
-		});
 
 	tweetCompose.on("keyup", function() {
 		console.log("keyup");
@@ -47,26 +45,29 @@ tweetCompose.on("click", function() {
 
 	});
 
-	
-tweetSubmit.on("click", function() {
-	console.log("submit click");	
-	var el = $('.tweet:first').clone().addClass('tweet');
-	el.find('.avatar').prop('src', 'img/alagoon.jpg');
-	el.find('.fullname').html('Fumiko Richards');
-	el.find('.username').html('@fr');
-	el.find('.tweet-text').html(tweetCompose.val());
-	$('#stream').prepend(el);
-
-	});
-
 		$(".tweet").on("click", function() {
-		$(this).find($('.stats')).toggle({duration:400});
-		$(this).find($('.reply')).toggle();
-		
-	});
-	
+			$(this).find($('.stats')).show({duration:400});
+			$(this).find($('.reply')).show();
+		});
 
 	
+	tweetSubmit.on("click", function() {
+		console.log("submit click");
+		$("#tweet-controls").toggle();
+		debugger;	
+		var el = $('.tweet:first').clone().addClass('tweet');
+		el.find('.avatar').prop('src', 'img/alagoon.jpg');
+		el.find('.fullname').html('Fumiko Richards');
+		el.find('.username').html('@fr');
+		el.find('.tweet-text').html(tweetCompose.val());
+		el.find('.time').html(time.timeago());
+		el.addClass('tweet');
+		$('#tweet-controls').css({display: none});
+		$('#stream').prepend(el);
+	});
+
+
+
 });
 
 
