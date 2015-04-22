@@ -54,7 +54,6 @@ tweetCompose.on("click", function() {
 	tweetSubmit.on("click", function() {
 		console.log("submit click");
 		$("#tweet-controls").toggle();
-		debugger;	
 		var el = $('.tweet:first').clone().addClass('tweet');
 		el.find('.avatar').prop('src', 'img/alagoon.jpg');
 		el.find('.fullname').html('Fumiko Richards');
@@ -62,8 +61,9 @@ tweetCompose.on("click", function() {
 		el.find('.tweet-text').html(tweetCompose.val());
 		el.find('.time').html(time.timeago());
 		el.addClass('tweet');
-		$('#tweet-controls').css({display: none});
+		$('#tweet-controls').css({display: 'none'});
 		$('#stream').prepend(el);
+		$(".tweet-compose").val = '';
 	});
 
 
